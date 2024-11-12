@@ -39,7 +39,7 @@ class Project extends Model
         static::creating(function ($project) {
             $project->slug = Str::slug($project->name);
             $project->status = 'active';
-    :        $project->priority = 'medium';
+            $project->priority = 'medium';
             // Generate key if not set (you might want to customize this format)
             if (!$project->key) {
                 $count = static::count() + 1;
