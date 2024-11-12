@@ -25,91 +25,90 @@ class ProjectResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\TextInput::make('name')
-                        ->required()
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) =>
-                        $operation === 'create' ? $set('slug', Str::slug($state)) : null
-                        ),
+            ->schema([
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null
+                            ),
 
-                    Forms\Components\TextInput::make('key')
-                        ->prefix('TF-')
-                        ->required()
-                        ->unique(ignoreRecord: true)
-                        ->helperText('Project identifier (e.g., 1 becomes TF-1)')
-                        ->columnStart(1),
+                        Forms\Components\TextInput::make('key')
+                            ->prefix('TF-')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->helperText('Project identifier (e.g., 1 becomes TF-1)')
+                            ->columnStart(1),
 
-                    Forms\Components\Select::make('status')
-                        ->options([
-                            'active' => 'Active',
-                            'paused' => 'Paused',
-                            'completed' => 'Completed',
-                        ])
-                        ->default('active')
-                        ->required()
-                        ->columnStart(2),
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                'active'    => 'Active',
+                                'paused'    => 'Paused',
+                                'completed' => 'Completed',
+                            ])
+                            ->default('active')
+                            ->required()
+                            ->columnStart(2),
 
-                    Forms\Components\TextInput::make('slug')
-                        ->disabled()
-                        ->dehydrated()
-                        ->required()
-                        ->unique(Project::class, 'slug', ignoreRecord: true)
-                        ->columnStart(1),
+                        Forms\Components\TextInput::make('slug')
+                            ->disabled()
+                            ->dehydrated()
+                            ->required()
+                            ->unique(Project::class, 'slug', ignoreRecord: true)
+                            ->columnStart(1),
 
-                    Forms\Components\Select::make('priority')
-                        ->options([
-                            'low' => 'Low',
-                            'medium' => 'Medium',
-                            'high' => 'High',
-                        ])
-                        ->default('medium')
-                        ->required()
-                        ->columnStart(2),
+                        Forms\Components\Select::make('priority')
+                            ->options([
+                                'low'    => 'Low',
+                                'medium' => 'Medium',
+                                'high'   => 'High',
+                            ])
+                            ->default('medium')
+                            ->required()
+                            ->columnStart(2),
 
-                    Forms\Components\RichEditor::make('description')
-                        ->toolbarButtons([
-                            'bold',
-                            'italic',
-                            'underline',
-                            'strike',
-                            'link',
-                            'bulletList',
-                            'orderedList',
-                            'redo',
-                            'undo',
-                        ])
-                        ->columnSpanFull(),
-                ])
-                ->columns(2)
-                ->columnSpan(['lg' => 2]),
+                        Forms\Components\RichEditor::make('description')
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strike',
+                                'link',
+                                'bulletList',
+                                'orderedList',
+                                'redo',
+                                'undo',
+                            ])
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2)
+                    ->columnSpan(['lg' => 2]),
 
-            Forms\Components\Section::make()
-                ->schema([
-                    Forms\Components\Select::make('owner_id')
-                        ->relationship('owner', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->required()
-                        ->label('Owner'),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Select::make('owner_id')
+                            ->relationship('owner', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->label('Owner'),
 
-                    Forms\Components\Select::make('lead_id')
-                        ->relationship('lead', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->label('Lead'),
+                        Forms\Components\Select::make('lead_id')
+                            ->relationship('lead', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->label('Lead'),
 
-                    Forms\Components\DatePicker::make('start_date')
-                        ->label('Start date'),
+                        Forms\Components\DatePicker::make('start_date')
+                            ->label('Start date'),
 
-                    Forms\Components\DatePicker::make('due_date')
-                        ->label('Due date'),
-                ])
-                ->columnSpan(['lg' => 1]),
-        ])
-        ->columns(3);
+                        Forms\Components\DatePicker::make('due_date')
+                            ->label('Due date'),
+                    ])
+                    ->columnSpan(['lg' => 1]),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -137,22 +136,21 @@ class ProjectResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->wrap()
-                    ->description(fn (Project $record) => new HtmlString($record->description))
-                    ->collapsible(),
+                    ->toggleable(),
 
                 Tables\Columns\SelectColumn::make('status')
                     ->options([
-                        'active' => 'Active',
-                        'paused' => 'Paused',
+                        'active'    => 'Active',
+                        'paused'    => 'Paused',
                         'completed' => 'Completed',
                     ])
                     ->sortable(),
 
                 Tables\Columns\SelectColumn::make('priority')
                     ->options([
-                        'low' => 'Low',
+                        'low'    => 'Low',
                         'medium' => 'Medium',
-                        'high' => 'High',
+                        'high'   => 'High',
                     ])
                     ->sortable(),
 
@@ -167,30 +165,28 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('due_date')
                     ->date()
                     ->sortable()
-                    ->color(fn (Project $record): string =>
-                    $record->due_date?->isPast() ? 'danger' : 'success'
+                    ->color(fn(Project $record): string => $record->due_date?->isPast() ? 'danger' : 'success'
                     ),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->multiple()
                     ->options([
-                        'active' => 'Active',
-                        'paused' => 'Paused',
+                        'active'    => 'Active',
+                        'paused'    => 'Paused',
                         'completed' => 'Completed',
                     ]),
 
                 Tables\Filters\SelectFilter::make('priority')
                     ->multiple()
                     ->options([
-                        'low' => 'Low',
+                        'low'    => 'Low',
                         'medium' => 'Medium',
-                        'high' => 'High',
+                        'high'   => 'High',
                     ]),
 
                 Tables\Filters\Filter::make('overdue')
-                    ->query(fn (Builder $query): Builder =>
-                    $query->where('due_date', '<', now())
+                    ->query(fn(Builder $query): Builder => $query->where('due_date', '<', now())
                         ->where('status', '!=', 'completed')
                     ),
 
@@ -223,9 +219,9 @@ class ProjectResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProjects::route('/'),
+            'index'  => Pages\ListProjects::route('/'),
             'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'edit'   => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 
