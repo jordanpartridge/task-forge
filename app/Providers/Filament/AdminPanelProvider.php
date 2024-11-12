@@ -65,7 +65,8 @@ class AdminPanelProvider extends PanelProvider
             )
             ->topNavigation()
             ->sidebarWidth('20rem')
-            ->maxContentWidth('full');
+            ->maxContentWidth('full')
+            ->viteTheme('resources/css/filament/admin/theme.css');
     }
 
     protected function renderLoginLink(): string

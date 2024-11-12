@@ -1,30 +1,45 @@
-@import '../../../../vendor/filament/filament/resources/css/theme.css';
-/* Professional gradient background that works in both modes */
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+
+@import '../../vendor/filament/filament/resources/css/theme.css';
+
+/* Subtle, professional background for the login page */
 .fi-simple-layout {
-    @apply bg-gradient-to-tr from-amber-50 via-white to-amber-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950;
+    @apply bg-gray-50 dark:bg-gray-900;
 }
 
-/* Card styling with proper dark mode */
+/* Clean card styling */
 .fi-simple-card {
-    @apply bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border-0 shadow-xl;
+    @apply bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700;
 }
 
-/* Logo sizing */
-.fi-logo {
-    @apply h-10;
+/* Magic login link styling */
+.magic-login {
+    @apply relative py-3 mb-4;
 }
 
-/* Sidebar refinements */
-.fi-sidebar {
-    @apply bg-white dark:bg-gray-900;
+.magic-login:before {
+    @apply absolute inset-0 border-t dark:border-gray-700;
+    content: '';
+    margin-top: 50%;
 }
 
-/* Modal improvements */
-.fi-modal-window {
-    @apply bg-white dark:bg-gray-900;
+.magic-login span {
+    @apply relative px-3 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800;
 }
 
-/* Amber color refinements */
+/* Form field enhancements */
+.fi-input-wrp {
+    @apply shadow-sm;
+}
+
+.fi-btn {
+    @apply shadow-sm;
+}
+
+/* Amber color refinements for better contrast */
 :root {
     --color-primary-50: 255 251 235;
     --color-primary-100: 254 243 199;
@@ -39,25 +54,47 @@
     --color-primary-950: 69 26 3;
 }
 
-/* Form field styling */
-.fi-input-wrp {
-    @apply bg-white dark:bg-gray-900 shadow-sm;
+/* Focus states */
+.fi-input:focus-within {
+    @apply ring-2 ring-primary-500/50;
 }
 
-/* Button enhancements */
-.fi-btn-primary {
-    @apply shadow-md transition-all duration-200;
-}
-
+/* Button hover states */
 .fi-btn-primary:hover {
-    @apply shadow-lg bg-primary-600 dark:bg-primary-600;
+    @apply bg-primary-600;
 }
 
-/* Typography */
+/* Typography improvements */
 .fi-simple-card-heading {
     @apply text-gray-900 dark:text-gray-100 font-semibold;
 }
 
 .fi-label {
     @apply text-gray-700 dark:text-gray-300;
+}
+/* Add to your theme.css */
+.fi-logo svg {
+    @apply h-8 w-auto text-amber-600 dark:text-amber-500;
+}
+
+/* Smooth animation for the sparks */
+.fi-logo .sparks circle {
+    @apply animate-pulse;
+    animation-delay: calc(var(--delay) * 200ms);
+    opacity: 0.8;
+}
+
+.fi-logo .sparks circle:nth-child(1) { --delay: 0; }
+.fi-logo .sparks circle:nth-child(2) { --delay: 1; }
+.fi-logo .sparks circle:nth-child(3) { --delay: 2; }
+
+/* Optional hover effect */
+.fi-logo:hover .hammer {
+    transform-origin: 280px 200px;
+    animation: hammer 1s ease-in-out;
+}
+
+@keyframes hammer {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-15deg); }
 }
