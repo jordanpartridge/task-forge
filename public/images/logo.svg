@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+    <!-- Hammer/Forge Element -->
+    <g class="hammer" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Hammer Head -->
+        <path d="M340 140L400 200L360 240L300 180L340 140Z" fill="currentColor"/>
+        <!-- Handle -->
+        <line x1="280" y1="200" x2="180" y2="300" stroke-width="32"/>
+    </g>
+
+    <!-- Checklist/Task Elements -->
+    <g class="tasks" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Paper Background -->
+        <rect x="120" y="180" width="200" height="240" rx="16" fill="white" stroke-width="16"/>
+
+        <!-- Task Lines -->
+        <line x1="160" y1="240" x2="280" y2="240"/>
+        <line x1="160" y1="300" x2="280" y2="300"/>
+        <line x1="160" y1="360" x2="280" y2="360"/>
+
+        <!-- Checkmarks -->
+        <path d="M320 240L340 260L380 220" class="check" fill="none"/>
+        <path d="M320 300L340 320L380 280" class="check" fill="none"/>
+        <path d="M320 360L340 380L380 340" class="check" fill="none"/>
+    </g>
+
+    <!-- Sparks -->
+    <g class="sparks" fill="currentColor">
+        <circle cx="390" cy="170" r="8"/>
+        <circle cx="420" cy="190" r="6"/>
+        <circle cx="380" cy="210" r="7"/>
+    </g>
+</svg>
