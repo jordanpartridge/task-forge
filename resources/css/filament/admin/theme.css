@@ -1,0 +1,63 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+/* Professional gradient background that works in both modes */
+.fi-simple-layout {
+    @apply bg-gradient-to-tr from-amber-50 via-white to-amber-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950;
+}
+
+/* Card styling with proper dark mode */
+.fi-simple-card {
+    @apply bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border-0 shadow-xl;
+}
+
+/* Logo sizing */
+.fi-logo {
+    @apply h-10;
+}
+
+/* Sidebar refinements */
+.fi-sidebar {
+    @apply bg-white dark:bg-gray-900;
+}
+
+/* Modal improvements */
+.fi-modal-window {
+    @apply bg-white dark:bg-gray-900;
+}
+
+/* Amber color refinements */
+:root {
+    --color-primary-50: 255 251 235;
+    --color-primary-100: 254 243 199;
+    --color-primary-200: 253 230 138;
+    --color-primary-300: 252 211 77;
+    --color-primary-400: 251 191 36;
+    --color-primary-500: 245 158 11;
+    --color-primary-600: 217 119 6;
+    --color-primary-700: 180 83 9;
+    --color-primary-800: 146 64 14;
+    --color-primary-900: 120 53 15;
+    --color-primary-950: 69 26 3;
+}
+
+/* Form field styling */
+.fi-input-wrp {
+    @apply bg-white dark:bg-gray-900 shadow-sm;
+}
+
+/* Button enhancements */
+.fi-btn-primary {
+    @apply shadow-md transition-all duration-200;
+}
+
+.fi-btn-primary:hover {
+    @apply shadow-lg bg-primary-600 dark:bg-primary-600;
+}
+
+/* Typography */
+.fi-simple-card-heading {
+    @apply text-gray-900 dark:text-gray-100 font-semibold;
+}
+
+.fi-label {
+    @apply text-gray-700 dark:text-gray-300;
+}
